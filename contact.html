@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Linework Land Surveying</title>
+  <meta name="description" content="Request a quote or schedule a consultation with Linework Land Surveying. Serving the Bay Area.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="nav-brand"><span class="nav-brand-main">Linework</span><span class="nav-brand-sub">Land Surveying</span></a>
+      <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-quote"><a href="contact.html" class="active">Get a Quote</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <p class="eyebrow">Contact</p>
+    <h1>Request a quote<br>or consultation</h1>
+  </section>
+
+  <div class="contact-body">
+
+    <div class="contact-left">
+      <h2>We respond to all inquiries within ten business days.</h2>
+      <p>Fill out the form with a few details about your project. If you are unsure what type of survey you need, describe your situation and we will help you figure out the right scope.</p>
+      <div class="contact-details">
+        <div>
+          <p class="contact-detail-label">Phone</p>
+          <p class="contact-detail-value"><a href="tel:+15102244380">(510) 224-4380</a></p>
+        </div>
+        <div>
+          <p class="contact-detail-label">Email</p>
+          <p class="contact-detail-value"><a href="mailto:jack@lineworksurveying.com">jack@lineworksurveying.com</a></p>
+        </div>
+        <div>
+          <p class="contact-detail-label">Service Area</p>
+          <p class="contact-detail-value" style="font-size:0.95rem; font-family:'DM Sans',sans-serif; color:var(--mid); line-height:1.8;">
+            Alameda County<br>
+            Contra Costa County<br>
+            Marin County<br>
+            San Mateo County<br>
+            San Francisco County<br>
+            Santa Clara County
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrap">
+      <h3>Project Inquiry</h3>
+      <form name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="inquiry">
+        <p style="display:none;"><label>Skip this: <input name="bot-field"></label></p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name *</label>
+            <input type="text" id="first-name" name="first-name" required autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name *</label>
+            <input type="text" id="last-name" name="last-name" required autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="service">Type of Survey *</label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select a service&hellip;</option>
+            <option value="boundary">Boundary / Property Survey</option>
+            <option value="topographic">Topographic Survey</option>
+            <option value="construction-staking">Construction Staking</option>
+            <option value="alta">ALTA / NSPS Survey</option>
+            <option value="lot-line">Lot Line Adjustment / Subdivision</option>
+            <option value="elevation-cert">Elevation Certificate</option>
+            <option value="easement">Easement Documentation</option>
+            <option value="condo">Condominium Conversion</option>
+            <option value="consultation">Consultation</option>
+            <option value="unsure">Not Sure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Property Address *</label>
+          <input type="text" id="address" name="property-address" required placeholder="Street address, city, county">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Project Description *</label>
+          <textarea id="description" name="description" required placeholder="Describe what you are trying to accomplish. Include any relevant details — timeline, existing permits, adjacent owners, or other site conditions."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="timeline">Timeline</label>
+          <select id="timeline" name="timeline">
+            <option value="" disabled selected>When do you need this completed?</option>
+            <option value="asap">As soon as possible</option>
+            <option value="1month">Within one month</option>
+            <option value="3months">Within three months</option>
+            <option value="flexible">Flexible</option>
+          </select>
+        </div>
+
+        <button type="submit" class="form-submit">Submit Inquiry</button>
+      </form>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer">
+      <div>
+        <span class="footer-brand">Linework Land Surveying</span>
+        <p class="footer-tagline">Licensed Professional Land Surveyor<br>Bay Area, California</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <address>
+          (510) 224-4380<br>
+          jack@lineworksurveying.com<br><br>
+          Bay Area, CA
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Linework Land Surveying</span>
+      <span>Licensed Professional Land Surveyor &mdash; State of California</span>
+    </div>
+  </footer>
+
+</body>
+</html>
