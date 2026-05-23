@@ -43,16 +43,25 @@ function doPost(e) {
 
     var propertyLocation = address + (city ? ', ' + city : '');
 
-    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
+    var sheet   = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
+    var lastRow = sheet.getLastRow();
 
-    // Column order:
-    // A: Project Number (fill in manually)  B: Date Received  C: Service Type  D: Timeline
+    // Find the first row where column B (Date Received) is empty.
+    // This matches pre-filled job numbers in column A to incoming submissions.
+    // If no such row exists, append after the last row.
+    var targetRow = lastRow + 1;
+    if (lastRow > 1) {
+      var colB = sheet.getRange(2, 2, lastRow - 1, 1).getValues();
+      for (var i = 0; i < colB.length; i++) {
+        if (!colB[i][0]) { targetRow = i + 2; break; }
+      }
+    }
+
+    // Write columns B-J only — column A (job number) is left for manual entry
+    // B: Date Received  C: Service Type  D: Timeline
     // E: Property Address + City  F: Property County
     // G: Client Name  H: Client Email  I: Client Mailing Address  J: Client Phone
-    // K-Q: status columns (Sent to Client, Needs Filing, Submitted to County,
-    //       Date Submitted, Date Redlines Received, Filing Status, Recording Info)
-    sheet.appendRow([
-      '',
+    sheet.getRange(targetRow, 2, 1, 9).setValues([[
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       service,
       timeline,
@@ -61,9 +70,8 @@ function doPost(e) {
       clientName,
       email,
       mailingAddress,
-      phone,
-      '', '', '', '', '', '', ''
-    ]);
+      phone
+    ]]);
 
     // Notification email to Linework
     var subject = 'New Inquiry: ' + clientName + ' (' + service + ')';
