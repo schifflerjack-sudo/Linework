@@ -1,8 +1,9 @@
 // Linework contact form handler
 // Deploy as a Google Apps Script web app (Execute as: Me, Access: Anyone)
 
-var SHEET_ID = '1An--aHWbGxLW3q7XCeku7rbfjdVfrzG1OQGQSet-Omc';
-var NOTIFY_EMAIL = 'jack@lineworksurveying.com';
+var SHEET_ID          = '1An--aHWbGxLW3q7XCeku7rbfjdVfrzG1OQGQSet-Omc';
+var PROJECTS_FOLDER_ID = '1JYqF_-TAqCNEPdBsicDtAEsoCMT7sczf';
+var NOTIFY_EMAIL      = 'jack@lineworksurveying.com';
 
 var SERVICE_LABELS = {
   'boundary':             'Boundary / Property Survey',
@@ -57,7 +58,10 @@ function doPost(e) {
       }
     }
 
-    // Write columns B-J only — column A (job number) is left for manual entry
+    // Read the job number already in column A of the target row
+    var jobNumber = sheet.getRange(targetRow, 1).getValue();
+
+    // Write columns B-J only — column A (job number) is pre-filled manually
     // B: Date Received  C: Service Type  D: Timeline
     // E: Property Address + City  F: Property County
     // G: Client Name  H: Client Email  I: Client Mailing Address  J: Client Phone
@@ -72,6 +76,21 @@ function doPost(e) {
       mailingAddress,
       phone
     ]]);
+
+    // Create project folder in Google Drive
+    try {
+      var folderName    = (jobNumber ? jobNumber + ' ' : '') + address;
+      var projectFolder = DriveApp.getFolderById(PROJECTS_FOLDER_ID).createFolder(folderName);
+
+      var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' +
+                    encodeURIComponent(propertyLocation);
+      projectFolder.createFile('Google Maps.url',
+        '[InternetShortcut]\r\nURL=' + mapsUrl + '\r\n',
+        MimeType.PLAIN_TEXT);
+      projectFolder.createFile('Job Database.url',
+        '[InternetShortcut]\r\nURL=https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit\r\n',
+        MimeType.PLAIN_TEXT);
+    } catch (driveErr) {}
 
     // Notification email to Linework
     var subject = 'New Inquiry: ' + clientName + ' (' + service + ')';
