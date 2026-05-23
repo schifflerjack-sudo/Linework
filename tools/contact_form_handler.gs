@@ -90,7 +90,9 @@ function doPost(e) {
       projectFolder.createFile('Job Database.url',
         '[InternetShortcut]\r\nURL=https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit\r\n',
         MimeType.PLAIN_TEXT);
-    } catch (driveErr) {}
+    } catch (driveErr) {
+      console.error('Drive folder failed: ' + driveErr.toString());
+    }
 
     // Notification email to Linework
     var subject = 'New Inquiry: ' + clientName + ' (' + service + ')';
@@ -118,9 +120,7 @@ function doPost(e) {
       'Job log: https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit'
     ].join('\n');
 
-    try {
-      MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: subject, body: body, replyTo: email });
-    } catch (adminErr) {}
+    MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: subject, body: body, replyTo: email });
 
     // Confirmation email to client
     var confirmBody = [
@@ -141,7 +141,9 @@ function doPost(e) {
 
     try {
       MailApp.sendEmail({ to: email, subject: 'We received your inquiry - Linework Land Surveying', body: confirmBody, replyTo: NOTIFY_EMAIL });
-    } catch (clientErr) {}
+    } catch (clientErr) {
+      console.error('Client email failed: ' + clientErr.toString());
+    }
 
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'success' }))
