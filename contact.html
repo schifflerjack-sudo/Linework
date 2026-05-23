@@ -59,7 +59,8 @@
 
     <div class="form-wrap">
       <h3>Project Inquiry</h3>
-      <form name="inquiry" action="javascript:void(0)">
+      <iframe name="submit-frame" id="submit-frame" style="display:none;" title="Form submission"></iframe>
+      <form name="inquiry" method="POST" action="https://script.google.com/macros/s/AKfycbxOifhMJ6033zmaMRsC45Q7byW8jfoxKwNYkWgyw51S-ZWPQUbSZchfHdrdVGsmC_eMFw/exec" target="submit-frame">
         <p style="display:none;"><label>Skip this: <input name="bot-field"></label></p>
 
         <div class="form-row">
@@ -165,38 +166,24 @@
 
   <script>
     (function () {
-      // Paste your Google Apps Script deployment URL here after deploying contact_form_handler.gs
-      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOifhMJ6033zmaMRsC45Q7byW8jfoxKwNYkWgyw51S-ZWPQUbSZchfHdrdVGsmC_eMFw/exec';
-      var form = document.querySelector('form[name="inquiry"]');
-      var btn  = form.querySelector('.form-submit');
+      var form      = document.querySelector('form[name="inquiry"]');
+      var btn       = form.querySelector('.form-submit');
+      var iframe    = document.getElementById('submit-frame');
+      var submitted = false;
+
+      iframe.addEventListener('load', function () {
+        if (!submitted) return;
+        form.innerHTML = '<p class="form-success">Thank you. We will be in touch within ten business days.</p>';
+      });
 
       form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        if (form.querySelector('[name="bot-field"]').value) return;
-
+        if (form.querySelector('[name="bot-field"]').value) {
+          e.preventDefault();
+          return;
+        }
+        submitted       = true;
         btn.disabled    = true;
         btn.textContent = 'Sending…';
-
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode:   'no-cors',
-          body:   new URLSearchParams(new FormData(form))
-        })
-        .then(function () {
-          form.innerHTML = '<p class="form-success">Thank you. We will be in touch within ten business days.</p>';
-        })
-        .catch(function () {
-          btn.disabled    = false;
-          btn.textContent = 'Submit Inquiry';
-          var err = form.querySelector('.form-error');
-          if (!err) {
-            err           = document.createElement('p');
-            err.className = 'form-error';
-            form.appendChild(err);
-          }
-          err.textContent = 'Something went wrong. Please try again or contact us directly.';
-        });
       });
     })();
   </script>
