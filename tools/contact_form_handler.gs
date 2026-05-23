@@ -96,6 +96,30 @@ function doPost(e) {
       replyTo: email
     });
 
+    // Send confirmation to client
+    var confirmBody = [
+      'Hello ' + firstName + ',',
+      '',
+      'Thank you for reaching out to work with us at Linework Land Surveying. We have received your inquiry and will be in touch within five business days.',
+      '',
+      'In the meantime, if you have any questions you can reach us at:',
+      '  Phone: (510) 224-4380',
+      '  Email: jack@lineworksurveying.com',
+      '',
+      'We look forward to working with you.',
+      '',
+      'Linework Land Surveying',
+      'Licensed Professional Land Surveyor',
+      'Bay Area, California'
+    ].join('\n');
+
+    MailApp.sendEmail({
+      to: email,
+      subject: 'We received your inquiry — Linework Land Surveying',
+      body: confirmBody,
+      replyTo: NOTIFY_EMAIL
+    });
+
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'success' }))
       .setMimeType(ContentService.MimeType.JSON);
