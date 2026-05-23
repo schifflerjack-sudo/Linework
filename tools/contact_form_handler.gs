@@ -1,6 +1,5 @@
 // Linework contact form handler
 // Deploy as a Google Apps Script web app (Execute as: Me, Access: Anyone)
-// Paste the deployment URL into contact.html where indicated
 
 var SHEET_ID = '1An--aHWbGxLW3q7XCeku7rbfjdVfrzG1OQGQSet-Omc';
 var NOTIFY_EMAIL = 'jack@lineworksurveying.com';
@@ -29,57 +28,73 @@ function doPost(e) {
   try {
     var p = e.parameter;
 
-    var firstName  = (p['first-name']       || '').trim();
-    var lastName   = (p['last-name']        || '').trim();
-    var clientName = (firstName + ' ' + lastName).trim();
-    var email      = (p['email']            || '').trim();
-    var phone      = (p['phone']            || '').trim();
-    var service    = SERVICE_LABELS[p['service']] || (p['service'] || '');
-    var address    = (p['property-address'] || '').trim();
-    var description = (p['description']    || '').trim();
-    var timeline   = TIMELINE_LABELS[p['timeline']] || (p['timeline'] || '');
+    var firstName      = (p['first-name']        || '').trim();
+    var lastName       = (p['last-name']         || '').trim();
+    var clientName     = (firstName + ' ' + lastName).trim();
+    var email          = (p['email']             || '').trim();
+    var phone          = (p['phone']             || '').trim();
+    var mailingAddress = (p['mailing-address']   || '').trim();
+    var service        = SERVICE_LABELS[p['service']] || (p['service'] || '');
+    var address        = (p['property-address']  || '').trim();
+    var city           = (p['property-city']     || '').trim();
+    var county         = (p['property-county']   || '').trim();
+    var description    = (p['description']       || '').trim();
+    var timeline       = TIMELINE_LABELS[p['timeline']] || (p['timeline'] || '');
 
-    // Build job description cell
-    var jobDesc = service;
-    if (description) jobDesc += '\n' + description;
-    if (timeline)    jobDesc += '\nTimeline: ' + timeline;
+    var propertyLocation = address + (city ? ', ' + city : '');
 
-    // Append row to job log
-    // Column order: Project Number, Date Received, Service Type, Timeline,
-    //   Street Address, City, County, Job Description,
-    //   Client Name, Client Email, Client Address, Client Phone,
-    //   Sent to Client, Needs Filing, Submitted to County, Date Submitted,
-    //   Date Redlines Received, Filing Status, Recording Info
-    SpreadsheetApp.openById(SHEET_ID).getSheets()[0].appendRow([
-      '',                                    // A: Project Number (assign manually)
-      Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm'),
-                                             // B: Date Received
-      service,                               // C: Service Type
-      timeline,                              // D: Timeline
-      address,                               // E: Street Address
-      '',                                    // F: City (fill in manually)
-      '',                                    // G: County (fill in manually)
-      jobDesc,                               // H: Job Description
-      clientName,                            // I: Client Name
-      email,                                 // J: Client Email
-      '',                                    // K: Client Address (not collected in form)
-      phone,                                 // L: Client Phone
-      '', '', '', '', '', '', ''             // M-S: status columns (fill in as work progresses)
+    // Auto-increment job number from last value in column A
+    var sheet   = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
+    var lastRow = sheet.getLastRow();
+    var jobNumber = 1;
+    if (lastRow > 1) {
+      var colA = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+      for (var i = colA.length - 1; i >= 0; i--) {
+        var val = parseInt(colA[i][0]);
+        if (!isNaN(val) && val > 0) {
+          jobNumber = val + 1;
+          break;
+        }
+      }
+    }
+
+    // Column order:
+    // A: Project Number  B: Date Received  C: Service Type  D: Timeline
+    // E: Property Address + City  F: Property County
+    // G: Client Name  H: Client Email  I: Client Mailing Address  J: Client Phone
+    // K-Q: status columns (Sent to Client, Needs Filing, Submitted to County,
+    //       Date Submitted, Date Redlines Received, Filing Status, Recording Info)
+    sheet.appendRow([
+      jobNumber,
+      Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
+      service,
+      timeline,
+      propertyLocation,
+      county,
+      clientName,
+      email,
+      mailingAddress,
+      phone,
+      '', '', '', '', '', '', ''
     ]);
 
-    // Send notification email
+    // Notification email to Linework
     var subject = 'New Inquiry: ' + clientName + ' (' + service + ')';
     var body = [
       'New project inquiry from the Linework website.',
       '',
       'CLIENT',
-      'Name:    ' + clientName,
-      'Email:   ' + email,
-      'Phone:   ' + (phone || 'Not provided'),
+      'Name:             ' + clientName,
+      'Email:            ' + email,
+      'Phone:            ' + (phone || 'Not provided'),
+      'Mailing Address:  ' + (mailingAddress || 'Not provided'),
+      '',
+      'PROPERTY',
+      'Address: ' + propertyLocation,
+      'County:  ' + (county || 'Not specified'),
       '',
       'PROJECT',
-      'Service: ' + service,
-      'Address: ' + address,
+      'Service:  ' + service,
       'Timeline: ' + (timeline || 'Not specified'),
       '',
       'DESCRIPTION',
@@ -89,14 +104,11 @@ function doPost(e) {
       'Job log: https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit'
     ].join('\n');
 
-    MailApp.sendEmail({
-      to: NOTIFY_EMAIL,
-      subject: subject,
-      body: body,
-      replyTo: email
-    });
+    try {
+      MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: subject, body: body, replyTo: email });
+    } catch (adminErr) {}
 
-    // Send confirmation to client
+    // Confirmation email to client
     var confirmBody = [
       'Hello ' + firstName + ',',
       '',
@@ -113,12 +125,9 @@ function doPost(e) {
       'Bay Area, California'
     ].join('\n');
 
-    MailApp.sendEmail({
-      to: email,
-      subject: 'We received your inquiry — Linework Land Surveying',
-      body: confirmBody,
-      replyTo: NOTIFY_EMAIL
-    });
+    try {
+      MailApp.sendEmail({ to: email, subject: 'We received your inquiry - Linework Land Surveying', body: confirmBody, replyTo: NOTIFY_EMAIL });
+    } catch (clientErr) {}
 
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'success' }))

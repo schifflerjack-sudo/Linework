@@ -86,6 +86,11 @@
         </div>
 
         <div class="form-group">
+          <label for="mailing-address">Mailing Address</label>
+          <input type="text" id="mailing-address" name="mailing-address" autocomplete="street-address" placeholder="If different from property address">
+        </div>
+
+        <div class="form-group">
           <label for="service">Type of Survey *</label>
           <select id="service" name="service" required>
             <option value="" disabled selected>Select a service&hellip;</option>
@@ -103,8 +108,19 @@
         </div>
 
         <div class="form-group">
-          <label for="address">Property Address *</label>
-          <input type="text" id="address" name="property-address" required placeholder="Street address, city, county">
+          <label for="address">Property Street Address *</label>
+          <input type="text" id="address" name="property-address" required placeholder="Street address">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="property-city">City *</label>
+            <input type="text" id="property-city" name="property-city" required>
+          </div>
+          <div class="form-group">
+            <label for="property-county">County *</label>
+            <input type="text" id="property-county" name="property-county" required placeholder="e.g. Alameda">
+          </div>
         </div>
 
         <div class="form-group">
