@@ -166,6 +166,7 @@
   <script>
     (function () {
       // Paste your Google Apps Script deployment URL here after deploying contact_form_handler.gs
+      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOifhMJ6033zmaMRsC45Q7byW8jfoxKwNYkWgyw51S-ZWPQUbSZchfHdrdVGsmC_eMFw/exec';
       var form = document.querySelector('form[name="inquiry"]');
       var btn  = form.querySelector('.form-submit');
 
@@ -177,8 +178,9 @@
         btn.disabled    = true;
         btn.textContent = 'Sending…';
 
-        fetch('/api/contact', {
+        fetch(SCRIPT_URL, {
           method: 'POST',
+          mode:   'no-cors',
           body:   new URLSearchParams(new FormData(form))
         })
         .then(function () {
