@@ -43,29 +43,16 @@ function doPost(e) {
 
     var propertyLocation = address + (city ? ', ' + city : '');
 
-    // Auto-increment job number from last value in column A
-    var sheet   = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
-    var lastRow = sheet.getLastRow();
-    var jobNumber = 1;
-    if (lastRow > 1) {
-      var colA = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
-      for (var i = colA.length - 1; i >= 0; i--) {
-        var val = parseInt(colA[i][0]);
-        if (!isNaN(val) && val > 0) {
-          jobNumber = val + 1;
-          break;
-        }
-      }
-    }
+    var sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
 
     // Column order:
-    // A: Project Number  B: Date Received  C: Service Type  D: Timeline
+    // A: Project Number (fill in manually)  B: Date Received  C: Service Type  D: Timeline
     // E: Property Address + City  F: Property County
     // G: Client Name  H: Client Email  I: Client Mailing Address  J: Client Phone
     // K-Q: status columns (Sent to Client, Needs Filing, Submitted to County,
     //       Date Submitted, Date Redlines Received, Filing Status, Recording Info)
     sheet.appendRow([
-      jobNumber,
+      '',
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       service,
       timeline,
