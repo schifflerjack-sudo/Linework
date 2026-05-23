@@ -59,8 +59,7 @@
 
     <div class="form-wrap">
       <h3>Project Inquiry</h3>
-      <form name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="inquiry">
+      <form name="inquiry" method="POST">
         <p style="display:none;"><label>Skip this: <input name="bot-field"></label></p>
 
         <div class="form-row">
@@ -158,6 +157,50 @@
       <span>Licensed Professional Land Surveyor &mdash; State of California</span>
     </div>
   </footer>
+
+  <style>
+    .form-success { padding: 2rem 0; font-size: 1.1rem; color: var(--dark); }
+    .form-error   { margin-top: 1rem; color: #c0392b; font-size: 0.9rem; }
+  </style>
+
+  <script>
+    (function () {
+      // Paste your Google Apps Script deployment URL here after deploying contact_form_handler.gs
+      var SCRIPT_URL = 'https://script.google.com/a/macros/lineworksurveying.com/s/AKfycbzLAcCyNFt1uhSP9_8SFrxGfSl0n7SwVGkNQXredTA5gtxNJD9Xtot5Kapf6Qt5V9Tcpw/exec';
+
+      var form = document.querySelector('form[name="inquiry"]');
+      var btn  = form.querySelector('.form-submit');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (form.querySelector('[name="bot-field"]').value) return;
+
+        btn.disabled    = true;
+        btn.textContent = 'Sending…';
+
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode:   'no-cors',
+          body:   new URLSearchParams(new FormData(form))
+        })
+        .then(function () {
+          form.innerHTML = '<p class="form-success">Thank you. We will be in touch within ten business days.</p>';
+        })
+        .catch(function () {
+          btn.disabled    = false;
+          btn.textContent = 'Submit Inquiry';
+          var err = form.querySelector('.form-error');
+          if (!err) {
+            err           = document.createElement('p');
+            err.className = 'form-error';
+            form.appendChild(err);
+          }
+          err.textContent = 'Something went wrong. Please try again or contact us directly.';
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
