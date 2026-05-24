@@ -63,7 +63,7 @@
 /* ── Variables ─────────────────────────────────────────────────────────────── */
 :root {
   --cream:   #F5EDE0;
-  --coral:   #EF8354;
+  --coral:   #EE486A;
   --olive:   #2A5B1C;
   --dark:    #1A1714;
   --mid:     #7A6A58;
@@ -194,7 +194,7 @@ img { max-width: 100%; display: block; }
   font-family: 'Satoshi', system-ui, sans-serif;
   font-weight: 300;
   font-style: normal;
-  font-size: 0.62em;
+  font-size: 0.68em;
   color: var(--dark);
 }
 
