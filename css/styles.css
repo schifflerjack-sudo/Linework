@@ -25,6 +25,12 @@
 }
 @font-face {
   font-family: 'Satoshi';
+  src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+       url('../fonts/Satoshi-Variable.woff') format('woff');
+  font-weight: 300 900; font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
   src: url('../fonts/Satoshi-Regular.woff2') format('woff2'),
        url('../fonts/Satoshi-Regular.woff') format('woff');
   font-weight: 400; font-display: swap;
@@ -42,16 +48,23 @@
   font-weight: 700; font-display: swap;
 }
 @font-face {
-  font-family: 'Zodiak';
-  src: url('../fonts/Zodiak-Variable.ttf') format('truetype');
+  font-family: 'Bespoke Serif';
+  src: url('../fonts/BespokeSerif-Variable.woff2') format('woff2'),
+       url('../fonts/BespokeSerif-Variable.woff') format('woff');
   font-weight: 100 900; font-display: swap;
+}
+@font-face {
+  font-family: 'Bespoke Serif';
+  src: url('../fonts/BespokeSerif-VariableItalic.woff2') format('woff2'),
+       url('../fonts/BespokeSerif-VariableItalic.woff') format('woff');
+  font-weight: 100 900; font-style: italic; font-display: swap;
 }
 
 /* ── Variables ─────────────────────────────────────────────────────────────── */
 :root {
   --cream:   #F5EDE0;
-  --rust:    #C4562A;
-  --olive:   #2A3B1C;
+  --coral:   #EF8354;
+  --olive:   #2A5B1C;
   --dark:    #1A1714;
   --mid:     #7A6A58;
   --sand:    #DEC99A;
@@ -95,17 +108,16 @@ img { max-width: 100%; display: block; }
 
 .nav-brand-main {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 1.1rem;
   letter-spacing: 0.01em;
 }
 
 .nav-brand-sub {
   font-family: 'Satoshi', system-ui, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
   font-size: 0.95rem;
-  color: var(--rust);
 }
 
 .nav-links {
@@ -127,8 +139,8 @@ img { max-width: 100%; display: block; }
 .nav-links a.active { color: var(--dark); }
 
 .nav-links .nav-quote a {
-  color: var(--rust);
-  border-bottom: 1px solid var(--rust);
+  color: var(--coral);
+  border-bottom: 1px solid var(--coral);
   padding-bottom: 1px;
 }
 
@@ -163,13 +175,13 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--rust);
+  color: var(--coral);
   margin-bottom: 28px;
 }
 
 .hero-name {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 900;
   font-size: clamp(4.0rem, 10vw, 8.5rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -180,10 +192,10 @@ img { max-width: 100%; display: block; }
 .hero-name em {
   display: block;
   font-family: 'Satoshi', system-ui, sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
   font-size: 0.62em;
-  color: var(--rust);
+  color: var(--dark);
 }
 
 .hero-sub {
@@ -200,9 +212,9 @@ img { max-width: 100%; display: block; }
   align-items: center;
 }
 
-.btn-rust {
+.btn-coral {
   display: inline-block;
-  background: var(--rust);
+  background: var(--coral);
   color: #fff;
   padding: 12px 28px;
   font-size: 0.85rem;
@@ -212,7 +224,7 @@ img { max-width: 100%; display: block; }
   transition: background 0.2s;
 }
 
-.btn-rust:hover { background: var(--dark); }
+.btn-coral:hover { background: var(--dark); }
 
 .btn-text {
   font-size: 0.85rem;
@@ -301,7 +313,7 @@ img { max-width: 100%; display: block; }
 }
 
 .about-strip h2 {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   line-height: 1.2;
   color: var(--dark);
@@ -320,14 +332,14 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--rust);
-  border-bottom: 1px solid var(--rust);
+  color: var(--coral);
+  border-bottom: 1px solid var(--coral);
   padding-bottom: 1px;
 }
 
 /* ── Area strip ────────────────────────────────────────────────────────────── */
 .area-strip {
-  background: var(--rust);
+  background: var(--coral);
   padding: 36px 48px;
   display: flex;
   align-items: center;
@@ -345,7 +357,7 @@ img { max-width: 100%; display: block; }
 }
 
 .area-strip .area-counties {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: 1rem;
   color: #fff;
   letter-spacing: 0.01em;
@@ -381,7 +393,7 @@ img { max-width: 100%; display: block; }
 
 
 .cta-band h2 {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   color: var(--cream);
   letter-spacing: -0.01em;
@@ -416,12 +428,12 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--rust);
+  color: var(--coral);
   margin-bottom: 20px;
 }
 
 .page-hero h1 {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: clamp(2.4rem, 5vw, 4rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -485,7 +497,7 @@ img { max-width: 100%; display: block; }
 }
 
 .about-text h2 {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   color: var(--dark);
   margin-bottom: 32px;
@@ -525,7 +537,7 @@ img { max-width: 100%; display: block; }
 }
 
 .aside-card li {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: 0.95rem;
   color: var(--dark);
   padding-bottom: 12px;
@@ -545,7 +557,7 @@ img { max-width: 100%; display: block; }
 }
 
 .contact-left h2 {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   color: var(--dark);
   margin-bottom: 24px;
@@ -576,13 +588,13 @@ img { max-width: 100%; display: block; }
 }
 
 .contact-detail-value {
-  font-family: 'Zodiak', Georgia, serif;
+  font-family: 'Bespoke Serif', Georgia, serif;
   font-size: 1.05rem;
   color: var(--dark);
 }
 
-.contact-detail-value a { color: var(--rust); }
-.contact-detail-value a:hover { border-bottom: 1px solid var(--rust); }
+.contact-detail-value a { color: var(--coral); }
+.contact-detail-value a:hover { border-bottom: 1px solid var(--coral); }
 
 /* ── Form ──────────────────────────────────────────────────────────────────── */
 .form-wrap {
@@ -632,7 +644,7 @@ img { max-width: 100%; display: block; }
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: var(--rust);
+  border-color: var(--coral);
 }
 
 .form-group textarea { min-height: 120px; resize: vertical; }
@@ -641,7 +653,7 @@ img { max-width: 100%; display: block; }
 
 .form-submit {
   width: 100%;
-  background: var(--rust);
+  background: var(--coral);
   color: #fff;
   border: none;
   padding: 14px;
@@ -668,7 +680,7 @@ img { max-width: 100%; display: block; }
 
 .footer-brand {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 1rem;
   color: var(--cream);
   display: block;

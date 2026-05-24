@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Guidelines — Linework Land Surveying</title>
+  <style>
+    @font-face { font-family: 'Cabinet Grotesk'; src: url('fonts/CabinetGrotesk-Black.woff2') format('woff2'), url('fonts/CabinetGrotesk-Black.woff') format('woff'); font-weight: 900; font-display: swap; }
+    @font-face { font-family: 'Cabinet Grotesk'; src: url('fonts/CabinetGrotesk-Bold.woff2') format('woff2'), url('fonts/CabinetGrotesk-Bold.woff') format('woff'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Cabinet Grotesk'; src: url('fonts/CabinetGrotesk-Medium.woff2') format('woff2'), url('fonts/CabinetGrotesk-Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Cabinet Grotesk'; src: url('fonts/CabinetGrotesk-Regular.woff2') format('woff2'), url('fonts/CabinetGrotesk-Regular.woff') format('woff'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Satoshi'; src: url('fonts/Satoshi-Variable.woff2') format('woff2'), url('fonts/Satoshi-Variable.woff') format('woff'); font-weight: 300 900; font-display: swap; }
+    @font-face { font-family: 'Satoshi'; src: url('fonts/Satoshi-Regular.woff2') format('woff2'), url('fonts/Satoshi-Regular.woff') format('woff'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Satoshi'; src: url('fonts/Satoshi-Medium.woff2') format('woff2'), url('fonts/Satoshi-Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Satoshi'; src: url('fonts/Satoshi-Bold.woff2') format('woff2'), url('fonts/Satoshi-Bold.woff') format('woff'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Bespoke Serif'; src: url('fonts/BespokeSerif-Variable.woff2') format('woff2'), url('fonts/BespokeSerif-Variable.woff') format('woff'); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: 'Bespoke Serif'; src: url('fonts/BespokeSerif-VariableItalic.woff2') format('woff2'), url('fonts/BespokeSerif-VariableItalic.woff') format('woff'); font-weight: 100 900; font-style: italic; font-display: swap; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:  #F7F3E3;
+      --paper:  #FAF6EE;
+      --cream:  #F5EDE0;
+      --dark:   #1A1714;
+      --mid:    #7A6A58;
+      --palm:   #789048;
+      --coral:  #EF8354;
+      --forest: #2A5B1C;
+      --khaki:  #413B25;
+      --border: rgba(26,23,20,0.12);
+    }
+
+    body {
+      font-family: 'Satoshi', system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--dark);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .brand-header {
+      background: #1A1714;
+      padding: 72px 64px 64px;
+      border-bottom: 3px solid var(--palm);
+    }
+
+    .brand-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.0;
+      margin-bottom: 48px;
+    }
+
+    .brand-logo-main {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 3.5rem;
+      color: var(--ivory);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo-sub {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 300;
+      font-size: 2.0rem;
+      color: var(--palm);
+      display: block;
+    }
+
+    .brand-header-meta {
+      display: flex;
+      gap: 48px;
+    }
+
+    .brand-header-meta div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .meta-value {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: rgba(250,246,238,0.7);
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 72px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 48px;
+    }
+
+    /* ── Color Palette ── */
+    .palette-group {
+      margin-bottom: 48px;
+    }
+
+    .palette-group-label {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .swatches-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .swatch-color {
+      height: 100px;
+      border-radius: 3px;
+      margin-bottom: 12px;
+    }
+
+    .swatch-name {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .swatch-values {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .swatch-hex {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--dark);
+      letter-spacing: 0.04em;
+    }
+
+    .swatch-rgb {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      color: var(--mid);
+    }
+
+    .swatch-cmyk {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      color: var(--mid);
+    }
+
+    .swatch-hsl {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      color: var(--mid);
+    }
+
+    /* ── Typography ── */
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+
+    .type-card {
+      background: var(--cream);
+      padding: 36px;
+    }
+
+    .type-card-label {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+
+    .type-specimen-cabinet {
+      font-family: 'Cabinet Grotesk', sans-serif;
+    }
+
+    .type-specimen-satoshi {
+      font-family: 'Satoshi', sans-serif;
+    }
+
+    .type-specimen-zodiak {
+      font-family: 'Bespoke Serif', Georgia, serif;
+    }
+
+    .type-specimen-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .type-specimen-line:last-child { border-bottom: none; }
+
+    .type-weight-label {
+      font-size: 0.7rem;
+      color: var(--mid);
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 400;
+    }
+
+    .type-uses {
+      margin-top: 32px;
+    }
+
+    .type-uses-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+
+    .type-uses ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .type-uses li {
+      font-size: 0.82rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-uses li::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: var(--palm);
+      flex-shrink: 0;
+    }
+
+    /* ── Type Scale ── */
+    .scale-section { margin-top: 64px; }
+
+    .scale-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .scale-rows {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scale-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 40px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+
+    .scale-row:last-child { border-bottom: none; }
+
+    .scale-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .scale-role {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      color: var(--dark);
+    }
+
+    .scale-spec {
+      font-size: 0.68rem;
+      color: var(--mid);
+    }
+
+    /* ── Logo section ── */
+    .logo-lockup-demo {
+      background: var(--cream);
+      padding: 64px;
+      display: inline-flex;
+      flex-direction: column;
+      margin-bottom: 48px;
+    }
+
+    .logo-demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .logo-demo-tile {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      line-height: 1.0;
+    }
+
+    .logo-demo-tile.dark { background: var(--dark); }
+    .logo-demo-tile.cream { background: var(--cream); }
+    .logo-demo-tile.forest { background: var(--forest); }
+    .logo-demo-tile.white { background: #ffffff; border: 1px solid var(--border); }
+
+    .demo-linework {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 2.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .demo-sub {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 300;
+      font-size: 1.3rem;
+    }
+
+    .logo-demo-tile.dark .demo-linework { color: var(--ivory); }
+    .logo-demo-tile.dark .demo-sub { color: var(--ivory); }
+    .logo-demo-tile.cream .demo-linework { color: var(--khaki); }
+    .logo-demo-tile.cream .demo-sub { color: var(--khaki); }
+    .logo-demo-tile.forest .demo-linework { color: var(--ivory); }
+    .logo-demo-tile.forest .demo-sub { color: var(--ivory); }
+    .logo-demo-tile.white .demo-linework { color: var(--dark); }
+    .logo-demo-tile.white .demo-sub { color: var(--dark); }
+
+    .logo-rules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .logo-rule {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .logo-rule-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--dark);
+    }
+
+    .logo-rule p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* ── Logo Variants ── */
+    .logo-variants { margin-bottom: 48px; }
+
+    .logo-variant-group { margin-bottom: 28px; }
+
+    .logo-variant-label {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-demo-grid--4 { grid-template-columns: repeat(4, 1fr); }
+    .logo-demo-grid--5 { grid-template-columns: repeat(5, 1fr); }
+
+    .logo-demo-grid--4 .logo-demo-tile { padding: 40px 36px; }
+    .logo-demo-grid--5 .logo-demo-tile { padding: 32px 28px; }
+
+    .logo-demo-grid--4 .demo-linework { font-size: 2.0rem; }
+    .logo-demo-grid--4 .demo-sub { font-size: 1.15rem; }
+    .logo-demo-grid--5 .demo-linework { font-size: 1.6rem; }
+    .logo-demo-grid--5 .demo-sub { font-size: 0.92rem; }
+
+    .logo-demo-tile.ivory { background: var(--ivory); border: 1px solid var(--border); }
+    .logo-demo-tile.ivory .demo-linework,
+    .logo-demo-tile.ivory .demo-sub { color: var(--khaki); }
+
+    .logo-demo-tile.mono-khaki,
+    .logo-demo-tile.mono-crimson,
+    .logo-demo-tile.mono-navy,
+    .logo-demo-tile.mono-paprika,
+    .logo-demo-tile.mono-palm { background: var(--ivory); border: 1px solid var(--border); }
+
+    .logo-demo-tile.mono-khaki .demo-linework { color: var(--khaki); }
+    .logo-demo-tile.mono-crimson .demo-linework { color: #D32240; }
+    .logo-demo-tile.mono-navy .demo-linework { color: #124E78; }
+    .logo-demo-tile.mono-paprika .demo-linework { color: #EA5C1F; }
+    .logo-demo-tile.mono-palm .demo-linework { color: var(--palm); }
+    .logo-demo-tile.mono-khaki .demo-sub,
+    .logo-demo-tile.mono-crimson .demo-sub,
+    .logo-demo-tile.mono-navy .demo-sub,
+    .logo-demo-tile.mono-paprika .demo-sub,
+    .logo-demo-tile.mono-palm .demo-sub { color: var(--khaki); }
+
+    .logo-demo-tile.crimson-bg { background: #D32240; }
+    .logo-demo-tile.paprika-bg { background: #EA5C1F; }
+    .logo-demo-tile.navy-bg { background: #124E78; }
+    .logo-demo-tile.olive-bg { background: #5C6C37; }
+    .logo-demo-tile.leather-bg { background: #95370E; }
+    .logo-demo-tile.denim-bg { background: #082E47; }
+    .logo-demo-tile.plum-bg { background: #291528; }
+    .logo-demo-tile.khaki-bg { background: #413B25; }
+
+    .logo-demo-tile.crimson-bg .demo-linework, .logo-demo-tile.crimson-bg .demo-sub,
+    .logo-demo-tile.paprika-bg .demo-linework, .logo-demo-tile.paprika-bg .demo-sub,
+    .logo-demo-tile.navy-bg .demo-linework,    .logo-demo-tile.navy-bg .demo-sub,
+    .logo-demo-tile.olive-bg .demo-linework,   .logo-demo-tile.olive-bg .demo-sub,
+    .logo-demo-tile.leather-bg .demo-linework, .logo-demo-tile.leather-bg .demo-sub,
+    .logo-demo-tile.denim-bg .demo-linework,   .logo-demo-tile.denim-bg .demo-sub,
+    .logo-demo-tile.plum-bg .demo-linework,    .logo-demo-tile.plum-bg .demo-sub,
+    .logo-demo-tile.khaki-bg .demo-linework,   .logo-demo-tile.khaki-bg .demo-sub { color: var(--ivory); }
+
+    /* ── Usage ── */
+    .usage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .usage-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .usage-card-swatch {
+      height: 6px;
+      border-radius: 1px;
+    }
+
+    .usage-card-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+
+    .usage-card p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .brand-footer {
+      background: #1A1714;
+      padding: 40px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-footer span {
+      font-size: 0.75rem;
+      color: rgba(250,246,238,0.35);
+      font-family: 'Satoshi', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="brand-header">
+    <div class="brand-logo">
+      <span class="brand-logo-main">Linework</span>
+      <span class="brand-logo-sub">Land Surveying</span>
+    </div>
+    <div class="brand-header-meta">
+      <div>
+        <span class="meta-label">Document</span>
+        <span class="meta-value">Brand Guidelines</span>
+      </div>
+      <div>
+        <span class="meta-label">Version</span>
+        <span class="meta-value">1.0</span>
+      </div>
+      <div>
+        <span class="meta-label">Updated</span>
+        <span class="meta-value">May 2026</span>
+      </div>
+      <div>
+        <span class="meta-label">License</span>
+        <span class="meta-value">Linework Land Surveying — Internal Use</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Color Palette -->
+  <section class="section">
+    <p class="section-label">01 — Identity</p>
+    <h2 class="section-title">Color Palette</h2>
+
+    <div class="palette-group">
+      <p class="palette-group-label">Lights — primary tones for backgrounds and accents</p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#789048;"></div>
+          <p class="swatch-name">Palm</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#789048</span>
+            <span class="swatch-rgb">RGB 123 / 144 / 75</span>
+            <span class="swatch-hsl">HSL 80 / 32 / 43</span>
+            <span class="swatch-cmyk">CMYK 15, 0, 48, 44</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#EE486A;"></div>
+          <p class="swatch-name">Bubblegum</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#EE486A</span>
+            <span class="swatch-rgb">RGB 238 / 75 / 106</span>
+            <span class="swatch-hsl">HSL 349 / 83 / 61</span>
+            <span class="swatch-cmyk">CMYK 0, 68, 55, 7</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#EF8354;"></div>
+          <p class="swatch-name">Coral</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#EF8354</span>
+            <span class="swatch-rgb">RGB 239 / 131 / 84</span>
+            <span class="swatch-hsl">HSL 18 / 83 / 63</span>
+            <span class="swatch-cmyk">CMYK 0, 45, 65, 6</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#7A93AC;"></div>
+          <p class="swatch-name">Steel</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#7A93AC</span>
+            <span class="swatch-rgb">RGB 122 / 147 / 172</span>
+            <span class="swatch-hsl">HSL 210 / 23 / 58</span>
+            <span class="swatch-cmyk">CMYK 29, 15, 0, 33</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#F7F3E3; border: 1px solid rgba(26,23,20,0.08);"></div>
+          <p class="swatch-name">Ivory</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#F7F3E3</span>
+            <span class="swatch-rgb">RGB 247 / 243 / 227</span>
+            <span class="swatch-hsl">HSL 48 / 56 / 93</span>
+            <span class="swatch-cmyk">CMYK 0, 2, 8, 3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <p class="palette-group-label">Mids — working tones for type, UI, and illustration</p>
+      <div class="swatches swatches-4">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#5C6C37;"></div>
+          <p class="swatch-name">Olive</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#5C6C37</span>
+            <span class="swatch-rgb">RGB 92 / 108 / 55</span>
+            <span class="swatch-hsl">HSL 78 / 33 / 32</span>
+            <span class="swatch-cmyk">CMYK 15, 0, 49, 58</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#D32240;"></div>
+          <p class="swatch-name">Crimson</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#D32240</span>
+            <span class="swatch-rgb">RGB 211 / 34 / 64</span>
+            <span class="swatch-hsl">HSL 350 / 72 / 48</span>
+            <span class="swatch-cmyk">CMYK 0, 84, 70, 17</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#EA5C1F;"></div>
+          <p class="swatch-name">Paprika</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#EA5C1F</span>
+            <span class="swatch-rgb">RGB 234 / 92 / 31</span>
+            <span class="swatch-hsl">HSL 18 / 83 / 52</span>
+            <span class="swatch-cmyk">CMYK 0, 61, 87, 8</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#124E78;"></div>
+          <p class="swatch-name">Navy</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#124E78</span>
+            <span class="swatch-rgb">RGB 18 / 78 / 120</span>
+            <span class="swatch-hsl">HSL 205 / 74 / 27</span>
+            <span class="swatch-cmyk">CMYK 85, 35, 0, 53</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <p class="palette-group-label">Darks — deep tones for backgrounds, type, and contrast</p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#2A5B1C;"></div>
+          <p class="swatch-name">Forest</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#2A5B1C</span>
+            <span class="swatch-rgb">RGB 42 / 91 / 28</span>
+            <span class="swatch-hsl">HSL 107 / 53 / 23</span>
+            <span class="swatch-cmyk">CMYK 29, 0, 57, 77</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#291528;"></div>
+          <p class="swatch-name">Plum</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#291528</span>
+            <span class="swatch-rgb">RGB 41 / 21 / 40</span>
+            <span class="swatch-hsl">HSL 303 / 33 / 12</span>
+            <span class="swatch-cmyk">CMYK 0, 49, 2, 84</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#95370E;"></div>
+          <p class="swatch-name">Leather</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#95370E</span>
+            <span class="swatch-rgb">RGB 149 / 55 / 14</span>
+            <span class="swatch-hsl">HSL 18 / 83 / 32</span>
+            <span class="swatch-cmyk">CMYK 0, 63, 91, 42</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#082E47;"></div>
+          <p class="swatch-name">Denim</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#082E47</span>
+            <span class="swatch-rgb">RGB 8 / 46 / 71</span>
+            <span class="swatch-hsl">HSL 205 / 80 / 16</span>
+            <span class="swatch-cmyk">CMYK 85, 35, 0, 72</span>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#413B25;"></div>
+          <p class="swatch-name">Dark Khaki</p>
+          <div class="swatch-values">
+            <span class="swatch-hex">#413B25</span>
+            <span class="swatch-rgb">RGB 65 / 59 / 37</span>
+            <span class="swatch-hsl">HSL 47 / 28 / 20</span>
+            <span class="swatch-cmyk">CMYK 0, 9, 43, 75</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="section">
+    <p class="section-label">02 — Typography</p>
+    <h2 class="section-title">Typefaces</h2>
+
+    <div class="type-grid">
+
+      <div class="type-card">
+        <p class="type-card-label">Cabinet Grotesk — Primary Sans</p>
+        <div class="type-specimen-cabinet">
+          <div class="type-specimen-line">
+            <span style="font-weight:900; font-size:1.5rem; letter-spacing:-0.02em;">Black 900</span>
+            <span class="type-weight-label">900</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:700; font-size:1.5rem; letter-spacing:-0.02em;">Bold 700</span>
+            <span class="type-weight-label">700</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:500; font-size:1.3rem;">Medium 500</span>
+            <span class="type-weight-label">500</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:400; font-size:1.3rem;">Regular 400</span>
+            <span class="type-weight-label">400</span>
+          </div>
+        </div>
+        <div class="type-uses" style="margin-top:24px;">
+          <p class="type-uses-title">Used for</p>
+          <ul>
+            <li>Wordmark — "Linework" (Black)</li>
+            <li>Navigation &amp; UI labels</li>
+            <li>Section headings</li>
+            <li>Service names</li>
+            <li>Buttons and calls to action</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <p class="type-card-label">Satoshi — Body Sans</p>
+        <div class="type-specimen-satoshi">
+          <div class="type-specimen-line">
+            <span style="font-weight:900; font-size:1.5rem;">Black 900</span>
+            <span class="type-weight-label">900</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:800; font-size:1.5rem;">Extra Bold 800</span>
+            <span class="type-weight-label">800</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:700; font-size:1.5rem;">Bold 700</span>
+            <span class="type-weight-label">700</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:500; font-size:1.3rem;">Medium 500</span>
+            <span class="type-weight-label">500</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:400; font-size:1.3rem;">Regular 400</span>
+            <span class="type-weight-label">400</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:300; font-size:1.3rem;">Light 300</span>
+            <span class="type-weight-label">300</span>
+          </div>
+        </div>
+        <div class="type-uses" style="margin-top:24px;">
+          <p class="type-uses-title">Used for</p>
+          <ul>
+            <li>Wordmark descriptor — "Land Surveying" (Light)</li>
+            <li>Body copy and paragraphs</li>
+            <li>Contact details</li>
+            <li>Captions and footnotes</li>
+            <li>Address and metadata</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <p class="type-card-label">Bespoke Serif — Display Serif</p>
+        <div class="type-specimen-zodiak">
+          <div class="type-specimen-line">
+            <span style="font-weight:900; font-size:1.5rem; letter-spacing:-0.02em;">Black 900</span>
+            <span class="type-weight-label">900</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:800; font-size:1.5rem; letter-spacing:-0.02em;">Extra Bold 800</span>
+            <span class="type-weight-label">800</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:700; font-size:1.5rem; letter-spacing:-0.02em;">Bold 700</span>
+            <span class="type-weight-label">700</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:500; font-size:1.3rem; letter-spacing:-0.01em;">Medium 500</span>
+            <span class="type-weight-label">500</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:400; font-size:1.3rem;">Regular 400</span>
+            <span class="type-weight-label">400</span>
+          </div>
+          <div class="type-specimen-line">
+            <span style="font-weight:300; font-size:1.3rem;">Light 300</span>
+            <span class="type-weight-label">300</span>
+          </div>
+        </div>
+        <div class="type-uses" style="margin-top:24px;">
+          <p class="type-uses-title">Used for</p>
+          <ul>
+            <li>Page titles and display headings</li>
+            <li>Pull quotes</li>
+            <li>Editorial subheadings</li>
+            <li>CTA band headlines</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Type Scale -->
+    <div class="scale-section">
+      <p class="scale-title">Type Scale &amp; Roles</p>
+      <div class="scale-rows">
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Hero / Wordmark</span>
+            <span class="scale-spec">Cabinet Grotesk Black (900) · clamp(4rem, 10vw, 8.5rem)</span>
+            <span class="scale-spec" style="margin-top:4px;">Satoshi Light (300) · 58% of wordmark size · no custom tracking or leading</span>
+          </div>
+          <div style="display:flex; flex-direction:column; line-height:1.0;">
+            <span class="scale-wordmark-main" style="font-family:'Cabinet Grotesk',sans-serif; font-weight:900; font-size:2.8rem; letter-spacing:-0.02em;">Linework</span>
+            <span class="scale-wordmark-sub" style="font-family:'Satoshi',sans-serif; font-weight:300; font-size:1.6rem;">Land Surveying</span>
+          </div>
+        </div>
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Display Heading</span>
+            <span class="scale-spec">Bespoke Serif 700 · clamp(2.4rem, 5vw, 4rem)</span>
+          </div>
+          <span style="font-family:'Bespoke Serif',Georgia,serif; font-weight:700; font-size:2rem; letter-spacing:-0.02em;">What we offer</span>
+        </div>
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Section Heading</span>
+            <span class="scale-spec">Cabinet Grotesk 700 · clamp(1.8rem, 3vw, 2.6rem)</span>
+          </div>
+          <span style="font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:1.6rem; letter-spacing:-0.01em;">Services</span>
+        </div>
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Card Heading</span>
+            <span class="scale-spec">Cabinet Grotesk 700 · clamp(1.2rem, 2vw, 1.6rem)</span>
+          </div>
+          <span style="font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:1.2rem; letter-spacing:-0.01em;">Boundary &amp; Property Surveys</span>
+        </div>
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Body</span>
+            <span class="scale-spec">Satoshi 400 · 0.95rem · line-height 1.8</span>
+          </div>
+          <span style="font-family:'Satoshi',sans-serif; font-weight:400; font-size:0.95rem; line-height:1.8; color:#7A6A58; max-width:540px;">A boundary survey locates or re-establishes the legal limits of a parcel of land using recorded deeds, title documents, and physical field measurements.</span>
+        </div>
+        <div class="scale-row">
+          <div class="scale-meta">
+            <span class="scale-role">Eyebrow / Label</span>
+            <span class="scale-spec">Cabinet Grotesk 500 · 0.7rem · tracking +0.14em · uppercase</span>
+          </div>
+          <span style="font-family:'Cabinet Grotesk',sans-serif; font-weight:500; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#C4562A;">Services</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo -->
+  <section class="section">
+    <p class="section-label">03 — Logomark</p>
+    <h2 class="section-title">Logo Lockup</h2>
+
+    <div class="logo-variants">
+
+      <div class="logo-variant-group">
+        <p class="logo-variant-label">Standard backgrounds</p>
+        <div class="logo-demo-grid logo-demo-grid--4">
+          <div class="logo-demo-tile white">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile ivory">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile dark">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile forest">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-variant-group">
+        <p class="logo-variant-label">Monocolor — ivory background only · mid tones only · descriptor always dark</p>
+        <div class="logo-demo-grid logo-demo-grid--5">
+          <div class="logo-demo-tile mono-khaki">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile mono-crimson">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile mono-navy">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile mono-paprika">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile mono-palm">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-variant-group">
+        <p class="logo-variant-label">Medium colored backgrounds — use sparingly</p>
+        <div class="logo-demo-grid logo-demo-grid--4">
+          <div class="logo-demo-tile crimson-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile paprika-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile navy-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile olive-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-variant-group">
+        <p class="logo-variant-label">Dark colored backgrounds — use sparingly</p>
+        <div class="logo-demo-grid logo-demo-grid--5">
+          <div class="logo-demo-tile leather-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile denim-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile plum-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile forest">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+          <div class="logo-demo-tile khaki-bg">
+            <span class="demo-linework">Linework</span>
+            <span class="demo-sub">Land Surveying</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="logo-rules">
+      <div class="logo-rule">
+        <p class="logo-rule-title">Wordmark — "Linework"</p>
+        <p>Cabinet Grotesk Black (900). No custom tracking or leading. On white or ivory backgrounds, use Dark Khaki (#413B25). On all other backgrounds, use Ivory (#F7F3E3).</p>
+      </div>
+      <div class="logo-rule">
+        <p class="logo-rule-title">Descriptor — "Land Surveying"</p>
+        <p>Satoshi Light (300). Approximately 58% of the wordmark size. The descriptor always matches the wordmark color — it is never independently colored.</p>
+      </div>
+      <div class="logo-rule">
+        <p class="logo-rule-title">Monocolor variants</p>
+        <p>On ivory backgrounds the wordmark may appear in a single mid-tone brand color: Crimson, Navy, Paprika, or Palm. Dark versions are not permitted. The descriptor always remains dark in monocolor variants.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Usage -->
+  <section class="section">
+    <p class="section-label">04 — Application</p>
+    <h2 class="section-title">Color Usage</h2>
+
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#1A1714;"></div>
+        <p class="usage-card-title">Primary Background</p>
+        <p>Dark (#1A1714) is used for nav backgrounds, footer, and CTA bands. Pairs with Ivory text and Palm or Sand accents.</p>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#F5EDE0;"></div>
+        <p class="usage-card-title">Page Background</p>
+        <p>Cream (#F5EDE0) is the main page background for hero sections and content areas. Pairs with Dark text and Coral or Paprika accents.</p>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#2A5B1C;"></div>
+        <p class="usage-card-title">Section Contrast</p>
+        <p>Forest (#2A5B1C) is the primary high-contrast section background. Text in Ivory (#F7F3E3) or Sand.</p>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#EF8354;"></div>
+        <p class="usage-card-title">Accent / Call to Action</p>
+        <p>Coral (#EF8354) and Paprika (#EA5C1F) drive attention — buttons, eyebrows, links, and active states.</p>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#DEC99A;"></div>
+        <p class="usage-card-title">Warm Neutral</p>
+        <p>Sand (#DEC99A) works as a secondary text color on dark backgrounds and as a decorative accent in headlines.</p>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-swatch" style="background:#7A6A58;"></div>
+        <p class="usage-card-title">Secondary Text</p>
+        <p>Mid (#7A6A58) is used for body copy, captions, and descriptive text on light backgrounds. Never on dark.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="brand-footer">
+    <span>Linework Land Surveying — Internal Brand Document</span>
+    <span>May 2026 &nbsp;&middot;&nbsp; Version 1.0</span>
+  </footer>
+
+</body>
+</html>
