@@ -63,6 +63,7 @@
 /* ── Variables ─────────────────────────────────────────────────────────────── */
 :root {
   --cream:   #F5EDE0;
+  --ivory:   #F7F3E3;
   --coral:   #EE486A;
   --olive:   #2A5B1C;
   --dark:    #1A1714;
@@ -101,15 +102,30 @@ img { max-width: 100%; display: block; }
 
 .nav-brand {
   display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dark);
+}
+
+.nav-logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  color: var(--dark);
+  overflow: hidden;
+}
+
+.nav-brand-text {
+  display: flex;
   align-items: baseline;
   gap: 0.35em;
-  color: var(--dark);
 }
 
 .nav-brand-main {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
   font-weight: 900;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   letter-spacing: 0.01em;
 }
 
@@ -117,7 +133,7 @@ img { max-width: 100%; display: block; }
   font-family: 'Satoshi', system-ui, sans-serif;
   font-weight: 300;
   font-style: normal;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .nav-links {
@@ -179,6 +195,20 @@ img { max-width: 100%; display: block; }
   margin-bottom: 28px;
 }
 
+.hero-lockup {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 36px;
+}
+
+.hero-logo {
+  width: clamp(5.5rem, 13vw, 11rem);
+  height: clamp(5.5rem, 13vw, 11rem);
+  flex-shrink: 0;
+  color: var(--dark);
+}
+
 .hero-name {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
   font-weight: 900;
@@ -186,7 +216,7 @@ img { max-width: 100%; display: block; }
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--dark);
-  margin-bottom: 36px;
+  margin-bottom: 0;
 }
 
 .hero-name em {
@@ -731,6 +761,40 @@ img { max-width: 100%; display: block; }
   gap: 8px;
 }
 
+/* ── Page color schemes ──────────────────────────────────────────────────── */
+/* Cream page → Dark nav */
+.scheme-cream .nav { background: var(--dark); border-bottom-color: rgba(255,255,255,0.08); }
+.scheme-cream .nav-logo { color: var(--ivory); }
+.scheme-cream .nav-brand-main,
+.scheme-cream .nav-brand-sub { color: var(--ivory); }
+.scheme-cream .nav-links a { color: rgba(247,243,227,0.55); }
+.scheme-cream .nav-links a:hover,
+.scheme-cream .nav-links a.active { color: var(--ivory); }
+.scheme-cream .nav-links .nav-quote a { border-color: rgba(247,243,227,0.4); color: var(--ivory); }
+.scheme-cream .nav-links .nav-quote a:hover { border-color: var(--ivory); }
+.scheme-cream .nav-toggle span { background: var(--ivory); }
+
+/* Olive page → Cream nav */
+.scheme-olive .nav { background: var(--cream); border-bottom-color: rgba(26,23,20,0.12); }
+
+/* Dark page → Paper nav + dark hero */
+.scheme-dark .nav { background: var(--paper); border-bottom-color: rgba(26,23,20,0.12); }
+.scheme-dark .page-hero { background: var(--dark); border-bottom-color: transparent; }
+.scheme-dark .page-hero .eyebrow { color: rgba(245,237,224,0.45); }
+.scheme-dark .page-hero h1 { color: var(--cream); }
+
+/* Paper page → Olive nav */
+.scheme-paper .nav { background: var(--olive); border-bottom-color: rgba(0,0,0,0.15); }
+.scheme-paper .nav-logo { color: var(--ivory); }
+.scheme-paper .nav-brand-main,
+.scheme-paper .nav-brand-sub { color: var(--ivory); }
+.scheme-paper .nav-links a { color: rgba(247,243,227,0.55); }
+.scheme-paper .nav-links a:hover,
+.scheme-paper .nav-links a.active { color: var(--ivory); }
+.scheme-paper .nav-links .nav-quote a { border-color: rgba(247,243,227,0.4); color: var(--ivory); }
+.scheme-paper .nav-links .nav-quote a:hover { border-color: var(--ivory); }
+.scheme-paper .nav-toggle span { background: var(--ivory); }
+
 /* ── Responsive ────────────────────────────────────────────────────────────── */
 @media (max-width: 860px) {
   .nav { padding: 18px 24px; }
@@ -746,6 +810,8 @@ img { max-width: 100%; display: block; }
     border-bottom: 1px solid rgba(26,23,20,0.1);
     padding: 8px 0;
   }
+  .scheme-cream .nav-links.open { background: var(--dark); border-bottom-color: rgba(255,255,255,0.08); }
+  .scheme-paper .nav-links.open { background: var(--olive); border-bottom-color: rgba(0,0,0,0.2); }
   .nav-links.open li a { display: block; padding: 12px 24px; }
   .nav-toggle { display: flex; }
 
