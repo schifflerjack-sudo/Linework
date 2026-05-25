@@ -109,8 +109,8 @@ img { max-width: 100%; display: block; }
 
 .nav-logo {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
   color: var(--dark);
   overflow: hidden;
@@ -125,7 +125,7 @@ img { max-width: 100%; display: block; }
 .nav-brand-main {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   letter-spacing: 0.01em;
 }
 
@@ -133,7 +133,7 @@ img { max-width: 100%; display: block; }
   font-family: 'Satoshi', system-ui, sans-serif;
   font-weight: 300;
   font-style: normal;
-  font-size: 1.05rem;
+  font-size: 0.9rem;
 }
 
 .nav-links {
@@ -198,13 +198,13 @@ img { max-width: 100%; display: block; }
 .hero-lockup {
   display: flex;
   align-items: center;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 2vw, 2rem);
   margin-bottom: 36px;
 }
 
 .hero-logo {
-  width: clamp(5.5rem, 13vw, 11rem);
-  height: clamp(5.5rem, 13vw, 11rem);
+  width: clamp(4rem, 10vw, 8.5rem);
+  height: clamp(4rem, 10vw, 8.5rem);
   flex-shrink: 0;
   color: var(--dark);
 }
@@ -212,7 +212,7 @@ img { max-width: 100%; display: block; }
 .hero-name {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
   font-weight: 900;
-  font-size: clamp(4.0rem, 10vw, 8.5rem);
+  font-size: clamp(3rem, 8.5vw, 8rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--dark);
