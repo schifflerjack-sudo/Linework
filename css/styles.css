@@ -74,7 +74,7 @@
 
 /* ── Reset ─────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { overflow-x: clip; }
+html, body { overflow-x: clip; overscroll-behavior: none; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -189,6 +189,7 @@ header {
   background: var(--cream);
   padding: 80px 48px 72px;
   border-bottom: 1px solid rgba(26,23,20,0.1);
+  overflow: hidden;
 }
 
 .hero-tag {
