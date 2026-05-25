@@ -112,11 +112,12 @@ header {
 
 .nav-logo {
   display: block;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   color: var(--dark);
   overflow: hidden;
+  shape-rendering: geometricPrecision;
 }
 
 .nav-brand-text {
@@ -210,6 +211,7 @@ header {
   height: clamp(4rem, 10vw, 8.5rem);
   flex-shrink: 0;
   color: var(--dark);
+  shape-rendering: geometricPrecision;
 }
 
 .hero-name {
