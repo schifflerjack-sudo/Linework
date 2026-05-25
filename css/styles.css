@@ -202,13 +202,13 @@ header {
 .hero-lockup {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(1rem, 2.3vw, 2.3rem);
   margin-bottom: 36px;
 }
 
 .hero-logo {
-  width: clamp(4rem, 10vw, 8.5rem);
-  height: clamp(4rem, 10vw, 8.5rem);
+  width: clamp(4rem, 11.5vw, 9.8rem);
+  height: clamp(4rem, 11.5vw, 9.8rem);
   flex-shrink: 0;
   color: var(--dark);
   shape-rendering: geometricPrecision;
@@ -217,7 +217,7 @@ header {
 .hero-name {
   font-family: 'Cabinet Grotesk', system-ui, sans-serif;
   font-weight: 900;
-  font-size: clamp(3rem, 8.5vw, 8rem);
+  font-size: clamp(3rem, 9.75vw, 9.2rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--dark);
