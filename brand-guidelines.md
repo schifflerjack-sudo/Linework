@@ -144,10 +144,10 @@ The wordmark may appear in a single mid-tone brand color. Descriptor remains dar
 | Medium and dark variants | `C:\Linework\Linework Admin\branding\Medium and dark variants.PNG` |
 | Wordmark solids | `C:\Linework\Linework Admin\branding\Wordmark solids.PNG` |
 | Typography reference | `C:\Linework\Linework Admin\branding\Document.PNG` |
-| Brand guidelines (this file) | `C:\Claude\linework\brand-guidelines.md` |
-| Brand guidelines (live HTML) | `C:\Claude\linework\brand-guidelines.html` |
-| Website fonts | `C:\Claude\linework\fonts\` |
-| Website source | `C:\Claude\linework\` |
+| Brand guidelines (this file) | `C:\Claude\website\brand-guidelines.md` |
+| Brand guidelines (live HTML) | `C:\Claude\website\brand-guidelines.html` |
+| Website fonts | `C:\Claude\website\fonts\` |
+| Website source | `C:\Claude\website\` |
 
 ---
 
