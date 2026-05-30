@@ -125,7 +125,7 @@
           <span class="footer-brand-title">Linework</span>
           <span class="footer-brand-subtitle">Land Surveying</span>
         </span>
-        <p class="footer-tagline">John Schiffler, PLS 10153<br>Bay Area, California</p>
+        <p class="footer-tagline">Jack Schiffler, PLS 10153<br>Bay Area, California</p>
       </div>
       <div class="footer-col">
         <h4>Pages</h4>
@@ -148,7 +148,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Linework Land Surveying</span>
-      <span>John Schiffler, PLS 10153 | State of California</span>
+      <span>Jack Schiffler, PLS 10153 | State of California</span>
     </div>
   </footer>
 
@@ -183,14 +183,21 @@
       font-size: 1.5rem;
       line-height: 1;
       color: var(--dark);
-      opacity: 0.35;
+      opacity: 0.5;
       flex-shrink: 0;
       margin-top: 2px;
       transition: transform 0.25s ease, opacity 0.2s;
     }
     .svc-item.open .svc-icon {
       transform: rotate(45deg);
-      opacity: 0.7;
+      opacity: 0.9;
+    }
+    .svc-header:hover h2 {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .svc-header:hover .svc-icon {
+      opacity: 0.9;
     }
     .svc-body {
       overflow: hidden;
