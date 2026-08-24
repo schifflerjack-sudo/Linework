@@ -17,6 +17,12 @@ var SPAM_KEYWORDS = [
   'forex', 'casino', 'viagra', 'cialis', 'weight loss', 'work from home',
   'guest post', 'increase your ranking', 'social media marketing'
 ];
+// Counties actually served - see the contact page's "Service Area" list.
+var SERVICE_COUNTIES = [
+  'alameda', 'contra costa', 'marin', 'san mateo', 'san francisco', 'santa clara'
+];
+// Reject once this many weak signals fire together (see spamSignalScore_).
+var SPAM_SCORE_THRESHOLD = 2;
 
 // True if the honeypot field was filled in (real users never see or fill it).
 function isHoneypotTriggered_(p) {
@@ -37,6 +43,36 @@ function looksLikeSpamContent_(text) {
   var urlMatches = lower.match(/https?:\/\/|www\./g) || [];
   var keywordHit = SPAM_KEYWORDS.some(function (k) { return lower.indexOf(k) !== -1; });
   return urlMatches.length >= SPAM_URL_THRESHOLD || keywordHit;
+}
+
+// True if the county looks like one of the Bay Area counties actually served.
+function isRecognizedServiceCounty_(county) {
+  var normalized = (county || '').toLowerCase().replace(/\s*county\s*$/, '').trim();
+  return SERVICE_COUNTIES.indexOf(normalized) !== -1;
+}
+
+// True if the phone number looks like a US number (10 digits, or 11 starting
+// with 1). Blank is treated as fine since the field is optional.
+function looksLikeUsPhone_(phone) {
+  var digits = (phone || '').replace(/\D/g, '');
+  if (!digits) return true;
+  return digits.length === 10 || (digits.length === 11 && digits.charAt(0) === '1');
+}
+
+// Score a submission on a few weak spam signals: an identical first/last
+// name, a property county outside the service area, and a non-US phone
+// number. Any one of these has a plausible innocent explanation on its own
+// (a referral-seeking lead outside the service area, a client traveling
+// abroad), but two or more firing together on the same submission is a
+// strong tell for the scripted-bot spam pattern seen in practice.
+function spamSignalScore_(p, county) {
+  var score = 0;
+  var first = (p['first-name'] || '').trim().toLowerCase();
+  var last  = (p['last-name']  || '').trim().toLowerCase();
+  if (first && first === last) score++;
+  if (!isRecognizedServiceCounty_(county)) score++;
+  if (!looksLikeUsPhone_(p['phone'])) score++;
+  return score;
 }
 
 var SERVICE_LABELS = {
@@ -83,6 +119,14 @@ function doPost(e) {
     var county         = (p['property-county']   || '').trim();
     var description    = (p['description']       || '').trim();
     var timeline       = TIMELINE_LABELS[p['timeline']] || (p['timeline'] || '');
+
+    if (spamSignalScore_(p, county) >= SPAM_SCORE_THRESHOLD) {
+      // Multiple weak spam signals fired together: treat as a bot the same
+      // way as the honeypot/timing checks above.
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'success' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
     var propertyLocation = address + (city ? ', ' + city : '');
 
