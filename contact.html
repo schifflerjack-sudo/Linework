@@ -78,6 +78,7 @@
       <iframe name="submit-frame" id="submit-frame" style="display:none;" title="Form submission"></iframe>
       <form name="inquiry" method="POST" action="https://script.google.com/macros/s/AKfycbx4VjP0T4yP50u2Lz1o00mjb05D3EUtCgE--F9YLzf9H5Fd_1jNxUw_4sYE3b7pyXw1tQ/exec" target="submit-frame">
         <p style="display:none;"><label>Skip this: <input name="bot-field"></label></p>
+        <input type="hidden" name="form-timestamp" id="form-timestamp">
 
         <div class="form-row">
           <div class="form-group">
@@ -204,6 +205,8 @@
       var btn       = form.querySelector('.form-submit');
       var iframe    = document.getElementById('submit-frame');
       var submitted = false;
+
+      document.getElementById('form-timestamp').value = Date.now();
 
       iframe.addEventListener('load', function () {
         if (!submitted) return;
