@@ -17,10 +17,6 @@ var SPAM_KEYWORDS = [
   'forex', 'casino', 'viagra', 'cialis', 'weight loss', 'work from home',
   'guest post', 'increase your ranking', 'social media marketing'
 ];
-// Counties actually served - see the contact page's "Service Area" list.
-var SERVICE_COUNTIES = [
-  'alameda', 'contra costa', 'marin', 'san mateo', 'san francisco', 'santa clara'
-];
 
 // True if the honeypot field was filled in (real users never see or fill it).
 function isHoneypotTriggered_(p) {
@@ -41,45 +37,6 @@ function looksLikeSpamContent_(text) {
   var urlMatches = lower.match(/https?:\/\/|www\./g) || [];
   var keywordHit = SPAM_KEYWORDS.some(function (k) { return lower.indexOf(k) !== -1; });
   return urlMatches.length >= SPAM_URL_THRESHOLD || keywordHit;
-}
-
-// True if the county looks like one of the Bay Area counties actually served.
-function isRecognizedServiceCounty_(county) {
-  var normalized = (county || '').toLowerCase().replace(/\s*county\s*$/, '').trim();
-  return SERVICE_COUNTIES.indexOf(normalized) !== -1;
-}
-
-// True if the phone number looks like a US number (10 digits, or 11 starting
-// with 1). Blank is treated as fine since the field is optional. A trailing
-// extension (" ext 2", " x2", " #2") is stripped first so it isn't counted
-// as part of the number.
-function looksLikeUsPhone_(phone) {
-  var withoutExtension = (phone || '').replace(/\b(ext\.?|x|#)\s*\d+\s*$/i, '');
-  var digits = withoutExtension.replace(/\D/g, '');
-  if (!digits) return true;
-  return digits.length === 10 || (digits.length === 11 && digits.charAt(0) === '1');
-}
-
-// True if a submission looks like the scripted-bot spam pattern seen in
-// practice: an identical first/last name (e.g. "Robertchats Robertchats"),
-// plus at least one of a property county outside the service area or a
-// non-US phone number. The identical-name signal is required on its own
-// terms, not just scored alongside the others: a county outside the service
-// area or a non-US phone each have common innocent explanations (a
-// referral-seeking lead from outside the area - which the contact page
-// explicitly invites - or a client traveling abroad), so either alone, or
-// even both together, is left alone. Only combined with a duplicated name
-// does it cross into "reject" territory.
-function isLikelySpamSubmission_(p, county) {
-  var first = (p['first-name'] || '').trim().toLowerCase();
-  var last  = (p['last-name']  || '').trim().toLowerCase();
-  var nameRepeated = !!(first && first === last);
-  if (!nameRepeated) return false;
-
-  var otherSignals = 0;
-  if (!isRecognizedServiceCounty_(county)) otherSignals++;
-  if (!looksLikeUsPhone_(p['phone'])) otherSignals++;
-  return otherSignals >= 1;
 }
 
 var SERVICE_LABELS = {
@@ -126,14 +83,6 @@ function doPost(e) {
     var county         = (p['property-county']   || '').trim();
     var description    = (p['description']       || '').trim();
     var timeline       = TIMELINE_LABELS[p['timeline']] || (p['timeline'] || '');
-
-    if (isLikelySpamSubmission_(p, county)) {
-      // Matches the observed bot pattern: treat as spam the same way as the
-      // honeypot/timing checks above.
-      return ContentService
-        .createTextOutput(JSON.stringify({ status: 'success' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
 
     var propertyLocation = address + (city ? ', ' + city : '');
 
