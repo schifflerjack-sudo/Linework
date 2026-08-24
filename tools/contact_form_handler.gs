@@ -250,3 +250,18 @@ function testEmail() {
   MailApp.sendEmail({ to: 'schifflerjack@gmail.com', subject: 'Test from Apps Script', body: 'Test email.' });
   console.log('Email OK');
 }
+
+// Run this once manually (select it in the function dropdown next to Run,
+// then click Run) to grant the script.external_request permission that
+// UrlFetchApp needs for Turnstile verification. Without this, doPost fails
+// with "You do not have permission to call UrlFetchApp.fetch" the first
+// time it tries to verify a token. Approving the consent prompt here
+// authorizes the whole script project, so no redeploy is needed afterward.
+function testTurnstile() {
+  var response = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'post',
+    payload: { secret: 'test', response: 'test' },
+    muteHttpExceptions: true
+  });
+  console.log(response.getContentText());
+}
