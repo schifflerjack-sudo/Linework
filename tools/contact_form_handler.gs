@@ -39,6 +39,51 @@ function looksLikeSpamContent_(text) {
   return urlMatches.length >= SPAM_URL_THRESHOLD || keywordHit;
 }
 
+// Cloudflare Turnstile: the secret key lives in Script Properties (Project
+// Settings > Script Properties in the Apps Script editor), never here in
+// source, since this file is committed to a repo.
+var TURNSTILE_SECRET_PROPERTY = 'TURNSTILE_SECRET_KEY';
+
+// True if the Turnstile token on the submission is valid. If the secret key
+// hasn't been configured yet, this fails open (treats the submission as
+// verified) and emails an alert, so a setup oversight doesn't silently
+// drop every legitimate lead.
+function isTurnstileVerified_(token) {
+  var secret = PropertiesService.getScriptProperties().getProperty(TURNSTILE_SECRET_PROPERTY);
+  if (!secret) {
+    MailApp.sendEmail({
+      to: NOTIFY_EMAIL,
+      subject: '[Linework] Turnstile not configured',
+      body: 'The ' + TURNSTILE_SECRET_PROPERTY + ' script property is missing, so Turnstile ' +
+            'verification is being skipped for all submissions. Set it under Project Settings > ' +
+            'Script Properties in the Apps Script editor.'
+    });
+    return true;
+  }
+  if (!token) return false;
+
+  try {
+    var response = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'post',
+      payload: { secret: secret, response: token },
+      muteHttpExceptions: true
+    });
+    var result = JSON.parse(response.getContentText());
+    return !!result.success;
+  } catch (verifyErr) {
+    MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: '[Linework] Turnstile verification error', body: verifyErr.toString() });
+    return false;
+  }
+}
+
+// Shared "success" response, used both for real submissions and for
+// submissions treated as spam (so a bot can't tell it was blocked).
+function successResponse_() {
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: 'success' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 var SERVICE_LABELS = {
   'boundary':             'Boundary / Property Survey',
   'topographic':          'Topographic Survey',
@@ -66,9 +111,12 @@ function doPost(e) {
     if (isHoneypotTriggered_(p) || isSubmittedTooFast_(p)) {
       // Likely a bot: silently pretend success so it doesn't retry or
       // adjust, but skip the sheet write, folder creation, and emails.
-      return ContentService
-        .createTextOutput(JSON.stringify({ status: 'success' }))
-        .setMimeType(ContentService.MimeType.JSON);
+      return successResponse_();
+    }
+
+    if (!isTurnstileVerified_(p['cf-turnstile-response'])) {
+      // Failed or missing Turnstile token: same silent treatment as above.
+      return successResponse_();
     }
 
     var firstName      = (p['first-name']        || '').trim();
@@ -183,9 +231,7 @@ function doPost(e) {
       MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: '[Linework] Client email error', body: 'Client: ' + email + '\n\n' + clientErr.toString() });
     }
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'success' }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return successResponse_();
 
   } catch (err) {
     return ContentService

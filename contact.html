@@ -12,6 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=20260525" />
   <meta name="apple-mobile-web-app-title" content="Linework" />
   <link rel="manifest" href="favicon/site.webmanifest?v=20260525" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="scheme-paper">
 
@@ -154,7 +155,9 @@
           </select>
         </div>
 
-        <button type="submit" class="form-submit">Submit Inquiry</button>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEaqeu3hkhrc1tyj" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileExpired"></div>
+
+        <button type="submit" class="form-submit" disabled>Submit Inquiry</button>
       </form>
     </div>
 
@@ -207,6 +210,9 @@
       var submitted = false;
 
       document.getElementById('form-timestamp').value = Date.now();
+
+      window.onTurnstileSuccess = function () { btn.disabled = false; };
+      window.onTurnstileExpired = function () { btn.disabled = true; };
 
       iframe.addEventListener('load', function () {
         if (!submitted) return;
