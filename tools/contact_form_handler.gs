@@ -21,8 +21,6 @@ var SPAM_KEYWORDS = [
 var SERVICE_COUNTIES = [
   'alameda', 'contra costa', 'marin', 'san mateo', 'san francisco', 'santa clara'
 ];
-// Reject once this many weak signals fire together (see spamSignalScore_).
-var SPAM_SCORE_THRESHOLD = 2;
 
 // True if the honeypot field was filled in (real users never see or fill it).
 function isHoneypotTriggered_(p) {
@@ -52,27 +50,36 @@ function isRecognizedServiceCounty_(county) {
 }
 
 // True if the phone number looks like a US number (10 digits, or 11 starting
-// with 1). Blank is treated as fine since the field is optional.
+// with 1). Blank is treated as fine since the field is optional. A trailing
+// extension (" ext 2", " x2", " #2") is stripped first so it isn't counted
+// as part of the number.
 function looksLikeUsPhone_(phone) {
-  var digits = (phone || '').replace(/\D/g, '');
+  var withoutExtension = (phone || '').replace(/\b(ext\.?|x|#)\s*\d+\s*$/i, '');
+  var digits = withoutExtension.replace(/\D/g, '');
   if (!digits) return true;
   return digits.length === 10 || (digits.length === 11 && digits.charAt(0) === '1');
 }
 
-// Score a submission on a few weak spam signals: an identical first/last
-// name, a property county outside the service area, and a non-US phone
-// number. Any one of these has a plausible innocent explanation on its own
-// (a referral-seeking lead outside the service area, a client traveling
-// abroad), but two or more firing together on the same submission is a
-// strong tell for the scripted-bot spam pattern seen in practice.
-function spamSignalScore_(p, county) {
-  var score = 0;
+// True if a submission looks like the scripted-bot spam pattern seen in
+// practice: an identical first/last name (e.g. "Robertchats Robertchats"),
+// plus at least one of a property county outside the service area or a
+// non-US phone number. The identical-name signal is required on its own
+// terms, not just scored alongside the others: a county outside the service
+// area or a non-US phone each have common innocent explanations (a
+// referral-seeking lead from outside the area - which the contact page
+// explicitly invites - or a client traveling abroad), so either alone, or
+// even both together, is left alone. Only combined with a duplicated name
+// does it cross into "reject" territory.
+function isLikelySpamSubmission_(p, county) {
   var first = (p['first-name'] || '').trim().toLowerCase();
   var last  = (p['last-name']  || '').trim().toLowerCase();
-  if (first && first === last) score++;
-  if (!isRecognizedServiceCounty_(county)) score++;
-  if (!looksLikeUsPhone_(p['phone'])) score++;
-  return score;
+  var nameRepeated = !!(first && first === last);
+  if (!nameRepeated) return false;
+
+  var otherSignals = 0;
+  if (!isRecognizedServiceCounty_(county)) otherSignals++;
+  if (!looksLikeUsPhone_(p['phone'])) otherSignals++;
+  return otherSignals >= 1;
 }
 
 var SERVICE_LABELS = {
@@ -120,9 +127,9 @@ function doPost(e) {
     var description    = (p['description']       || '').trim();
     var timeline       = TIMELINE_LABELS[p['timeline']] || (p['timeline'] || '');
 
-    if (spamSignalScore_(p, county) >= SPAM_SCORE_THRESHOLD) {
-      // Multiple weak spam signals fired together: treat as a bot the same
-      // way as the honeypot/timing checks above.
+    if (isLikelySpamSubmission_(p, county)) {
+      // Matches the observed bot pattern: treat as spam the same way as the
+      // honeypot/timing checks above.
       return ContentService
         .createTextOutput(JSON.stringify({ status: 'success' }))
         .setMimeType(ContentService.MimeType.JSON);
