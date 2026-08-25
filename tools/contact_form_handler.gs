@@ -5,40 +5,6 @@ var SHEET_ID          = '1An--aHWbGxLW3q7XCeku7rbfjdVfrzG1OQGQSet-Omc';
 var PROJECTS_FOLDER_ID = '1JYqF_-TAqCNEPdBsicDtAEsoCMT7sczf';
 var NOTIFY_EMAIL      = 'jack@lineworksurveying.com';
 
-// --- Spam filtering ---
-// Submissions faster than this are almost certainly scripted bots, not a
-// person filling out a multi-field form.
-var MIN_FILL_SECONDS  = 3;
-// Flag (don't block) submissions whose description looks spammy, so real
-// leads that happen to include a link aren't silently dropped.
-var SPAM_URL_THRESHOLD = 2;
-var SPAM_KEYWORDS = [
-  'seo services', 'backlink', 'link building', 'crypto', 'bitcoin',
-  'forex', 'casino', 'viagra', 'cialis', 'weight loss', 'work from home',
-  'guest post', 'increase your ranking', 'social media marketing'
-];
-
-// True if the honeypot field was filled in (real users never see or fill it).
-function isHoneypotTriggered_(p) {
-  return !!(p['bot-field'] || '').trim();
-}
-
-// True if the form was submitted implausibly fast after it loaded.
-function isSubmittedTooFast_(p) {
-  var ts = Number(p['form-timestamp']);
-  if (!ts) return false; // missing timestamp (e.g. JS disabled) - don't block
-  var elapsedSeconds = (Date.now() - ts) / 1000;
-  return elapsedSeconds >= 0 && elapsedSeconds < MIN_FILL_SECONDS;
-}
-
-// True if the free-text description looks like spam content.
-function looksLikeSpamContent_(text) {
-  var lower = (text || '').toLowerCase();
-  var urlMatches = lower.match(/https?:\/\/|www\./g) || [];
-  var keywordHit = SPAM_KEYWORDS.some(function (k) { return lower.indexOf(k) !== -1; });
-  return urlMatches.length >= SPAM_URL_THRESHOLD || keywordHit;
-}
-
 // Cloudflare Turnstile: the secret key lives in Script Properties (Project
 // Settings > Script Properties in the Apps Script editor), never here in
 // source, since this file is committed to a repo.
@@ -76,14 +42,6 @@ function isTurnstileVerified_(token) {
   }
 }
 
-// Shared "success" response, used both for real submissions and for
-// submissions treated as spam (so a bot can't tell it was blocked).
-function successResponse_() {
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'success' }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
 var SERVICE_LABELS = {
   'boundary':             'Boundary / Property Survey',
   'topographic':          'Topographic Survey',
@@ -108,15 +66,12 @@ function doPost(e) {
   try {
     var p = e.parameter;
 
-    if (isHoneypotTriggered_(p) || isSubmittedTooFast_(p)) {
-      // Likely a bot: silently pretend success so it doesn't retry or
-      // adjust, but skip the sheet write, folder creation, and emails.
-      return successResponse_();
-    }
-
     if (!isTurnstileVerified_(p['cf-turnstile-response'])) {
-      // Failed or missing Turnstile token: same silent treatment as above.
-      return successResponse_();
+      // Failed or missing Turnstile token: pretend success so a bot can't
+      // tell it was blocked, but skip the sheet write and emails.
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'success' }))
+        .setMimeType(ContentService.MimeType.JSON);
     }
 
     var firstName      = (p['first-name']        || '').trim();
@@ -167,6 +122,9 @@ function doPost(e) {
       phone
     ]]);
 
+    // Y: Project Description
+    sheet.getRange(targetRow, 25).setValue(description);
+
     // Create project folder in Google Drive
     try {
       var folderName    = (jobNumber ? jobNumber + ' ' : '') + address;
@@ -183,8 +141,7 @@ function doPost(e) {
     }
 
     // Notification email to Linework
-    var spamFlag = looksLikeSpamContent_(description) ? '[Possible Spam] ' : '';
-    var subject = spamFlag + 'New Inquiry: ' + clientName + ' (' + service + ')';
+    var subject = 'New Inquiry: ' + clientName + ' (' + service + ')';
     var body = [
       'New project inquiry from the Linework website.',
       '',
@@ -231,7 +188,9 @@ function doPost(e) {
       MailApp.sendEmail({ to: NOTIFY_EMAIL, subject: '[Linework] Client email error', body: 'Client: ' + email + '\n\n' + clientErr.toString() });
     }
 
-    return successResponse_();
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
     return ContentService
@@ -249,15 +208,6 @@ function testDrive() {
 function testEmail() {
   MailApp.sendEmail({ to: 'schifflerjack@gmail.com', subject: 'Test from Apps Script', body: 'Test email.' });
   console.log('Email OK');
-}
-
-// Run this manually and check the execution log (View > Logs, or the
-// output panel after Run finishes) for the number it prints. MailApp has a
-// daily sending quota tied to the Google account running the script; once
-// it hits 0, sendEmail calls stop delivering (sometimes without throwing),
-// and it doesn't reset until the next day.
-function checkMailQuota() {
-  console.log('Remaining daily MailApp quota: ' + MailApp.getRemainingDailyQuota());
 }
 
 // Run this once manually (select it in the function dropdown next to Run,
