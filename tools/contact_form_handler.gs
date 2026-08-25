@@ -122,6 +122,9 @@ function doPost(e) {
       phone
     ]]);
 
+    // Y: Project Description
+    sheet.getRange(targetRow, 25).setValue(description);
+
     // Create project folder in Google Drive
     try {
       var folderName    = (jobNumber ? jobNumber + ' ' : '') + address;
