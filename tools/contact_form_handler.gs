@@ -210,6 +210,15 @@ function testEmail() {
   console.log('Email OK');
 }
 
+// Run this manually and check the execution log (View > Logs, or the
+// output panel after Run finishes) for the number it prints. MailApp has a
+// daily sending quota tied to the Google account running the script; once
+// it hits 0, sendEmail calls stop delivering (sometimes without throwing),
+// and it doesn't reset until the next day.
+function checkMailQuota() {
+  console.log('Remaining daily MailApp quota: ' + MailApp.getRemainingDailyQuota());
+}
+
 // Run this once manually (select it in the function dropdown next to Run,
 // then click Run) to grant the script.external_request permission that
 // UrlFetchApp needs for Turnstile verification. Without this, doPost fails
